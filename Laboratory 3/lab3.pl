@@ -47,8 +47,11 @@ invertList([],[]).
 invertList([H|L],RL) :- invertList(L, TRL), concat2Lists(TRL, [H], RL).
 
 % Permutation in a list.
-% permutation([])
-% permutation(L).
+takeout(X, [X|R], R).
+takeout(X, [F|R], [F|S]) :- takeout(X, R, S).
+
+permutation([X|Y], Z) :- permutation(Y, W), takeout(X, Z, W).
+permutation([], []).
 
 % Get minimum element from a list.
 % E - element
@@ -66,3 +69,36 @@ getMinim([H|L], E) :- getMinim(L, TE), minimum(H, TE, E).
 % TP - temp position
 getByPosition([X|_], 1, X).
 getByPosition([_|L], P, E) :- TP is P - 1, getByPosition(L, TP, E).
+
+% Insert element on a position
+% E - element to insert
+% P - position for insert
+% H - head of list
+% L - list of elements
+% TP - temp position
+% RL - result list
+insertAt(E, 1, L, [E|L]).
+insertAt(E, P, [H|L], [H|RL]) :- TP is P - 1, insertAt(E, TP, L, RL).
+
+% Merge 2 list of sorted elements.
+% RS - right sorted list
+% LS - left sorted list
+% L - head of left sorted list
+% R - head of right sorted list
+% FS - final sorted list
+merge([], RS, RS).
+merge(LS, [], LS).
+merge([L|LS], [R|RS], [L|FS]) :- L =< R, merge(LS, [R|RS], FS).
+merge([L|LS], [R|RS], [R|FS]) :- L > R, merge([L|LS], RS, FS).
+
+% Divide a list by a value.
+% L - list of elements
+% H - head of list
+% E - element for divide
+% SN - smaller numbers list
+% GN - greater numbers list
+divideBy([], _, [], []).
+divideBy([H], E, [H], []) :- H =< E, !.
+divideBy([H], E, [], [H]) :- H > E, !.
+divideBy([H|L], E, [H|SN], GN) :- H =< E, divideBy(L, E, SN, GN).
+divideBy([H|L], E, SN, [H|GN]) :- H > E, divideBy(L, E, SN, GN).
