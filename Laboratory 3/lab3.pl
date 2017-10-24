@@ -22,6 +22,14 @@ concat2Lists([H|L1], L2, [H|RL]) :- concat2Lists(L1, L2, RL).
 minimum(A, B, A) :- A =< B.
 minimum(A, B, B) :- B =< A.
 
+% Delete an element from a list.
+% E - element
+% L - list
+% E1, E2 - heads of list
+% RL - result list
+deleteFromList(E, [E|L], L).
+deleteFromList(E, [E1, E2|L], [E1|RL]) :- deleteFromList(E, [E2|L], RL).
+
 % Main functions.
 % ----------
 % Replace an element into a list.
@@ -47,10 +55,11 @@ invertList([],[]).
 invertList([H|L],RL) :- invertList(L, TRL), concat2Lists(TRL, [H], RL).
 
 % Permutation in a list.
-takeout(X, [X|R], R).
-takeout(X, [F|R], [F|S]) :- takeout(X, R, S).
-
-permutation([X|Y], Z) :- permutation(Y, W), takeout(X, Z, W).
+% E - element
+% L - list of elements
+% TP - temp permutation
+% RP - result permutation
+permutation([E|L], RP) :- permutation(L, TP), deleteFromList(E, RP, TP).
 permutation([], []).
 
 % Get minimum element from a list.

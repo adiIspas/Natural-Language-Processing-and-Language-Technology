@@ -1,4 +1,5 @@
 % Laboratory 2
+% TEMA PROBLEMA CELOR 8 DAME
 
 % Auxiliary functions.
 % ----------
@@ -53,12 +54,18 @@ unionOfSets(S1, S2, RS) :- setof(E, (isMemberInList(E, S1); isMemberInList(E, S2
 differenceOfSets([], [], []).
 differenceOfSets(S1, S2, RS) :- setof(E, (isMemberInList(E, S1), \+isMemberInList(E, S2)), RS).
 
+% Insert an element in top of list.
+% E - element
+% L - list of elements
+insertTop(E, [], [E]) :- !.
+insertTop(E, L, [E|L]) :- \+isMemberInList(E,L).
+
 % Delete an element from a list.
 % E - element
 % L - list
 % E1, E2 - heads of list
 % RL - result list
-deleteFromList(E, [E|L], L).
+deleteFromList(E, [E|L], L) :- !.
 deleteFromList(E, [E1, E2|L], [E1|RL]) :- deleteFromList(E, [E2|L], RL).
 
 % Factorial for a number.
@@ -66,17 +73,17 @@ deleteFromList(E, [E1, E2|L], [E1|RL]) :- deleteFromList(E, [E2|L], RL).
 % R - result
 % TN - temp number
 % TR - temp result
-factorial(0, 1).
-factorial(N, R):- TN is N - 1, factorial(TN, TR), R is TR * N.
+factorial(0, R) :- R is 1,!.
+factorial(N, R) :- TN is N - 1, factorial(TN, TR), R is TR * N.
 
 % Fibonacci for a number.
 % N - number for fibonacci
 % R - result
 % TN1, TN2 - temp number
 % TR1, TR2 - temp result
-fibonacci(0, 0).
-fibonacci(1, 1).
-fibonacci(N, R):- TN1 is N - 1, TN2 is N - 2, fibonacci(TN1, TR1), fibonacci(TN2, TR2), R is TR1 + TR2.
+fibonacci(0, R) :- R is 0, !.
+fibonacci(1, R) :- R is 1, !.
+fibonacci(N, R) :- TN1 is N - 1, TN2 is N - 2, fibonacci(TN1, TR1), fibonacci(TN2, TR2), R is TR1 + TR2.
 
 % CMMDC for 2 numbers.
 % X, Y - numbers
@@ -99,4 +106,5 @@ numberOfElements([_|L], R) :- numberOfElements(L, TR), R is TR + 1.
 % H - head of list
 % TR - temp result
 sumOfPositiveElements([], 0).
-sumOfPositiveElements([H|L], R) :- sumOfPositiveElements(L, TR), R is TR + H.
+sumOfPositiveElements([H|L], R) :- H =< 0, sumOfPositiveElements(L, R).
+sumOfPositiveElements([H|L], R) :- H > 0, sumOfPositiveElements(L, TR), R is TR + H.
