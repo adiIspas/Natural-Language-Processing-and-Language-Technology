@@ -1,16 +1,25 @@
-parse(C, [Cuvant|S], S) :- cuvant(C, Cuvant).
-parse(C, S1, S) :- regula(C, Cs), parse_lista(Cs, S1, S).
+parse(Cateorie, Numar, [Cuvant|S], S, [Cateorie,[Cuvant]]) :-
+	cuvant(Cateorie, Numar, Cuvant).
 
-parse_lista([C|Cs], S1, S) :- parse(C, S1, S2), parse_lista(Cs, S2, S).
-parse_lista([], S, S).
+parse(Cateorie, Numar, S1, S, [Cateorie, Arbore]) :-
+	regula(Cateorie, Numar, NumereFii, Fii),
+	parse_lista(Fii, NumereFii, S1, S, Arbore).
 
-regula(s, [np, vp]).
-regula(vp, [v]).
-regula(vp, [v, np]).
+parse_lista([C|Categorii], [N|Numere], S1, S, [A|Arbore]) :-
+	parse(C, N, S1, S2, A),
+	parse_lista(Categorii, Numere, S2, S, Arbore).
+parse_lista([], [], S, S, []).
 
-cuvant(np, 'Colentina').
-cuvant(np, 'Dr. Popescu').
-cuvant(np, 'pacienti').
-cuvant(np, 'surori').
-cuvant(v, 'merge').
-cuvant(v, 'angajeaza').
+regula(s, _, [Numar, Numar], [np, vp]).
+regula(vp, Numar, [Numar], [v]).
+regula(vp, Numar, [Numar, _], [v, np]).
+regula(np, Numar, [Numar], [n]).
+
+cuvant(np, singular, 'Ana').
+cuvant(np, singular, 'fruct').
+cuvant(np, plural, 'pere').
+cuvant(np, plural, 'mere').
+cuvant(v, singular, 'are').
+
+parse_s(X, Arbore) :- parse(s, _, X, [], Arbore).
+generate_all(L) :- findall(X, parse_s(X, _), L).
