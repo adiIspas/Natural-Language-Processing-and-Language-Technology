@@ -10,7 +10,7 @@ parse_lista([Categorie | Categorii], Sir1, Sir) :-
 
 parse_lista([], Sir, Sir).
 
-completeaza(Categorie, Categorie, Sir, Sir).
+completeaza(Subcategorie, Subcategorie, Sir, Sir).
 completeaza(Subcategorie, Categorie, Sir1, Sir) :-
 	regula(Parinte, [Subcategorie | Rest]),
 	parse_lista(Rest, Sir1, Sir2),
@@ -19,11 +19,10 @@ completeaza(Subcategorie, Categorie, Sir1, Sir) :-
 regula(s, [np, vp]).
 regula(np, [det, n]).
 regula(np, [np, conj, np]).
-regula(vp, [v, np, pp]).
 regula(vp, [v, np]).
-regula(pp, [p, pp]).
-cuvant(n, dog).
-cuvant(n, dogs).
+regula(vp, [v, np, pp]).
+regula(pp, [p, np]).
+
 cuvant(det, the).
 cuvant(det, all).
 cuvant(det, every).
