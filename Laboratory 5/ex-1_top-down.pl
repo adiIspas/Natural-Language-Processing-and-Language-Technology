@@ -1,3 +1,5 @@
+% Laboratory 5
+
 parse(Cateorie, Numar, [Cuvant|S], S, [Cateorie,[Cuvant]]) :-
 	cuvant(Cateorie, Numar, Cuvant).
 
@@ -15,11 +17,11 @@ regula(vp, Numar, [Numar], [v]).
 regula(vp, Numar, [Numar, _], [v, np]).
 regula(np, Numar, [Numar], [n]).
 
-cuvant(np, singular, 'Ana').
-cuvant(np, singular, 'fruct').
-cuvant(np, plural, 'pere').
-cuvant(np, plural, 'mere').
-cuvant(v, singular, 'are').
+cuvant(n, singular, ana).
+cuvant(n, plural, mere).
+cuvant(n, plural, baietii).
+cuvant(v, singular, are).
+cuvant(v, plural, au).
 
-parse_s(X, Arbore) :- parse(s, _, X, [], Arbore).
-generate_all(L) :- findall(X, parse_s(X, _), L).
+general_parse(X, Arbore) :- parse(s, _, X, [], Arbore).
+generate_all(L) :- findall(X, general_parse(X, _), L).
