@@ -58,5 +58,5 @@ cuvant(n, plural, baietii).
 cuvant(v, singular, are).
 cuvant(v, plural, au).
 
-% Exemplu apel: general_parse([ana, are, mere], A).
-general_parse(X, Arbore) :- parse(X, [s], [], Arbore).
+% Exemplu apel: parse_sentence([ana, are, mere], A).
+parse_sentence(X, Arbore) :- parse(X, [s], [], Arbore).

@@ -41,6 +41,6 @@ cuvant(v, sees).
 cuvant(v, amuse).
 cuvant(v, amuses).
 
-% Exemplu apel: general_parse([the, dog, see, the, cat]). - propozitia
+% Exemplu apel: parse_sentence([the, dog, see, the, cat]). - propozitia
 % trebuie sa fie conforma cu gramatica pentru un raspuns yes.
-general_parse(X) :- parse(s, X, []).
+parse_sentence(X) :- parse(s, X, []).

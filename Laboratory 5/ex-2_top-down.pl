@@ -23,8 +23,8 @@ cuvant(n, baietii).
 cuvant(v, are).
 cuvant(v, au).
 
-% Exemplu apel: general_parse(X, A). - va genera rand pe rand cate o combinatie
-general_parse(X, Arbore) :- parse(s, X, [], Arbore).
+% Exemplu apel: parse_sentence(X, A). - va genera rand pe rand cate o combinatie
+parse_sentence(X, Arbore) :- parse(s, X, [], Arbore).
 
 % Exemplu apel: generate_all(L). - va genera toate combinatiile
-generate_all(L) :- findall(X, general_parse(X, _), L).
+generate_all(L) :- findall(X, parse_sentence(X, _), L).
