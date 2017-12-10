@@ -3,7 +3,6 @@
 parse(C, S1, S) :- cuvant(W, S1, S2),P=..[W, C, S2, S],call(P).
 
 % Reguli PS si clauze de terminare
-
 s(s, X, X).
 vp(vp, X, X).
 n(n, X, X).
