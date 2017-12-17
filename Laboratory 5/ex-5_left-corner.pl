@@ -34,8 +34,8 @@ cuvant(n, singular, cat).
 cuvant(n, plural, cats).
 cuvant(n, singular, elephant).
 cuvant(n, plural, elephants).
-cuvant(v, singular, chase).
-cuvant(v, plural, chases).
+cuvant(v, plural, chase).
+cuvant(v, singular, chases).
 cuvant(v, singular, see).
 cuvant(v, plural, sees).
 cuvant(v, singular, amuse).

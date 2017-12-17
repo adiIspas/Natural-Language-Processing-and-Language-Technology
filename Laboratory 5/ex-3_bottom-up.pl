@@ -45,6 +45,7 @@ iregula([vp, np|X], [s|X], [Numar, Numar | Numere], [ _ | Numere], [Arbore2, Arb
 iregula([v|X], [vp|X], [Numar | Numere], [Numar | Numere], [Arbore1 | Arbore], [[vp, Arbore1] | Arbore]).
 iregula([np, v|X], [vp|X], [_, Numar | Numere], [Numar | Numere], [Arbore2, Arbore1 | Arbore], [[vp, Arbore1, Arbore2] | Arbore]).
 iregula([n | X], [np | X], [Numar | Numere], [Numar | Numere], [Arbore1 | Arbore] , [[np, Arbore1] | Arbore]).
+iregula([n, det|X], [np|X], [Numar, Numar | Numere], [ Numar | Numere], [Arbore2, Arbore1 | Arbore], [[np, Arbore1, Arbore2] | Arbore]).
 
 % Pentru ca lexiconul sa poata fi utilizat este nevoie, in plus, de specificarea
 % urmatoarei reguli inapoi:
@@ -57,6 +58,7 @@ cuvant(n, plural, mere).
 cuvant(n, plural, baietii).
 cuvant(v, singular, are).
 cuvant(v, plural, au).
+cuvant(det, plural, multe).
 
 % Exemplu apel: parse_sentence([ana, are, mere], A).
 parse_sentence(X, Arbore) :- parse(X, [s], [], Arbore).

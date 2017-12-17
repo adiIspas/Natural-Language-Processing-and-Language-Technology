@@ -16,12 +16,14 @@ regula(s, [np, vp]).
 regula(vp, [v]).
 regula(vp, [v, np]).
 regula(np, [n]).
+regula(np, [det, n]).
 
 cuvant(n, ana).
 cuvant(n, mere).
 cuvant(n, baietii).
 cuvant(v, are).
 cuvant(v, au).
+cuvant(det, multe).
 
 % Exemplu apel: parse_sentence(X, A). - va genera rand pe rand cate o combinatie
 parse_sentence(X, Arbore) :- parse(s, X, [], Arbore).

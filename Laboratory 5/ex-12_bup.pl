@@ -43,8 +43,8 @@ cuvant(n, singular, [cat|X], X).
 cuvant(n, plural, [cats|X], X).
 cuvant(n, singular, [elephant|X], X).
 cuvant(n, plural, [elephants|X], X).
-cuvant(v, singular, [chase|X], X).
-cuvant(v, plural, [chases|X], X).
+cuvant(v, plural, [chase|X], X).
+cuvant(v, singular, [chases|X], X).
 cuvant(v, singular, [see|X], X).
 cuvant(v, plural, [sees|X], X).
 cuvant(v, singular, [amuse|X], X).
