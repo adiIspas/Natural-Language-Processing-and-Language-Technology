@@ -1,16 +1,14 @@
 % Top-down cu harta si agenda.
 
-:- dynamic muchie / 4
+% :- dynamic muchie / 4
 
 init_agenda([], _, []).
 init_agenda([Cuvant|Cuvinte], V0, Agenda) :-
   V1 is V0 + 1,
   findall(muchie(V0, V1, Categorie, []), cuvant(Categorie, Cuvant), Agenda1),
+  print(Agenda1), print(' '), print(Cuvant),print('\n'),
   init_agenda(Cuvinte, V1, Agenda2),
   append(Agenda1, Agenda2, Agenda).
-
-append([], L, L).
-append([H|T], L, [H|T1]) :- append(T, L, T1).
 
 extinde_muchii([], Harta, Harta).
 extinde_muchii([Muchie|Agenda1], Harta1, Harta2) :-
@@ -31,6 +29,7 @@ adauga_muchie(Muchie,Muchii,[Muchie|Muchii]).
 
 adauga_muchii([],Muchii,Muchii).
 adauga_muchii([Muchie|Muchii],Muchii1,Muchii3) :-
+  print(Muchie),print('\n'),
   adauga_muchie(Muchie,Muchii1,Muchii2),
   adauga_muchii(Muchii,Muchii2,Muchii3).
 
@@ -39,7 +38,7 @@ init_activ(Categorie,Varf,Muchii) :-
 
 muchii_noi(muchie(V1,V2,Categorie1,[]),Harta,Muchii) :-
   findall(muchie(V0,V2,Categorie2,Categorii), membru(muchie(V0,V1,Categorie2,[Categorie1|Categorii]),Harta),Muchii).
-muchii_noi(muchie(V1,V2,Categori1,[Categorie2|Categorii]),Harta,Muchii) :-
+muchii_noi(muchie(V1,V2,Categorie1,[Categorie2|Categorii]),Harta,Muchii) :-
   init_activ(Categorie2, V2, Muchii1),
   findall(muchie(V1,V3,Categorie1,Categorii),membru(muchie(V2,V3,Categorie2,[]),Harta),Muchii2),
   append(Muchii1,Muchii2,Muchii).
