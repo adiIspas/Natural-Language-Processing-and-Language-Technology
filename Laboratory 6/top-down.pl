@@ -1,12 +1,11 @@
 % Top-down cu harta si agenda.
 
-% :- dynamic muchie / 4
+:- dynamic muchie / 4 .
 
 init_agenda([], _, []).
 init_agenda([Cuvant|Cuvinte], V0, Agenda) :-
   V1 is V0 + 1,
   findall(muchie(V0, V1, Categorie, []), cuvant(Categorie, Cuvant), Agenda1),
-  print(Agenda1), print(' '), print(Cuvant),print('\n'),
   init_agenda(Cuvinte, V1, Agenda2),
   append(Agenda1, Agenda2, Agenda).
 
@@ -29,7 +28,6 @@ adauga_muchie(Muchie,Muchii,[Muchie|Muchii]).
 
 adauga_muchii([],Muchii,Muchii).
 adauga_muchii([Muchie|Muchii],Muchii1,Muchii3) :-
-  print(Muchie),print('\n'),
   adauga_muchie(Muchie,Muchii1,Muchii2),
   adauga_muchii(Muchii,Muchii2,Muchii3).
 
