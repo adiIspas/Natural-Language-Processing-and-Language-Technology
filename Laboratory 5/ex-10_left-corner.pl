@@ -5,10 +5,10 @@ parse(Categorie, [Cuvant | SirRamas], Sir, Arbore) :-
  legatura(Subcategorie, Categorie),
  completeaza(Subcategorie, Categorie, SirRamas, Sir, [Subcategorie, [Cuvant]], Arbore).
 
-parse(Categorie, Sir, S, Arbore) :-
-   regula(Subcategorie, []),
-   legatura(Subcategorie, Categorie),
-   completeaza(Subcategorie, Categorie, Sir, S, [Subcategorie, []], Arbore).
+parse(Categorie, S2, S, Arbore) :-
+  regula(W, []),
+  legatura(W, Categorie),
+  completeaza(W, Categorie, S2, S, [W, []], Arbore).
 
 parse_lista([Categorie | Categorii], Sir1, Sir, [Arbore1 | Arbore]) :-
  parse(Categorie, Sir1, Sir2 , Arbore1),
@@ -28,6 +28,7 @@ regula(np, [np, conj, np]).
 regula(vp, [v, np]).
 regula(vp, [v, np, pp]).
 regula(pp, [p, np]).
+regula(det, []).
 
 :-dynamic legatura/2.
 generate_links(X) :-
@@ -35,7 +36,7 @@ generate_links(X) :-
 	print(X), print(' '), print(X), nl,
     regula(X, [Y | _]),!, X\=Y,
 	\+legatura(Y,X), assert(legatura(Y,X)),
-    print(Y), print(' '), print(X), nl,
+  print(Y), print(' '), print(X), nl,
 	generate_links(Y),
 	legatura(X,Z),!, \+legatura(Y,Z), assert(legatura(Y,Z)),
 	print(Y), print(' '), print(Z), nl.
@@ -58,6 +59,12 @@ cuvant(v, see).
 cuvant(v, sees).
 cuvant(v, amuse).
 cuvant(v, amuses).
+
+% Generare legaturi.
+generate :- generate_links(s); generate_links(vp); generate_links(pp);
+            findall(X, cuvant(X, _), L), generate_words(L).
+generate_words([]).
+generate_words([E|L]) :- generate_links(E), generate_words(L).
 
 % Exemplu apel: parse_sentence([all, dogs, sees, the, cat], A). - propozitia
 % trebuie sa fie conforma cu gramatica pentru un raspuns yes.
